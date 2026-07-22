@@ -10,7 +10,11 @@
 
 ---
 
-<!-- TODO: Add a demo GIF here showing part selection updating the 3D preview, then painting on the 3D model. This is the single highest-impact thing on the page. -->
+<div align="center">
+
+<img src=".github/demo.gif" alt="Demo: merging skin parts and painting on the 3D model" width="800" />
+
+</div>
 
 ## What it does
 
