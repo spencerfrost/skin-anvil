@@ -5,15 +5,21 @@
 @tailwind utilities;
 
 @layer base {
-  /* Prevent layout shift when the vertical scrollbar appears/disappears. */
+  /*
+   * The native page scrollbar is hidden entirely and replaced by the
+   * <OverlayScrollbar /> component (a floating thumb, macOS-overlay style).
+   * A hidden scrollbar occupies zero layout space, so the page background
+   * stays full-bleed and never resizes when content overflows. Browsers
+   * removed `overflow: overlay` and always size the canvas background
+   * against the viewport minus the scrollbar, so hiding + redrawing is the
+   * only way to get this effect.
+   * Only the root scrollbar is hidden — inner scrollables keep theirs.
+   */
   html {
-    overflow-y: scroll; /* fallback: always reserve a scrollbar track */
+    scrollbar-width: none; /* Firefox + Chromium 121+ */
   }
-  @supports (scrollbar-gutter: stable) {
-    html {
-      overflow-y: auto;
-      scrollbar-gutter: stable; /* reserve the gutter without drawing an empty track */
-    }
+  html::-webkit-scrollbar {
+    display: none; /* Safari + older Chromium */
   }
 
   body {
