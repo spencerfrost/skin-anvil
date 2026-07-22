@@ -6,8 +6,8 @@ const Card = React.forwardRef(({ className, children, ...props }, ref) => (
     <div
       className="mc-card grid h-full w-full"
       style={{
-        gridTemplateColumns: '2px 2px 1fr 2px 2px',
-        gridTemplateRows: '2px 2px 1fr 2px 2px',
+        gridTemplateColumns: '2px 2px minmax(0, 1fr) 2px 2px',
+        gridTemplateRows: '2px 2px minmax(0, 1fr) 2px 2px',
         gridTemplateAreas: `
           "tl-tl tr-tl t tl-tr tr-tr"
           "bl-tl br-tl t bl-tr br-tr"

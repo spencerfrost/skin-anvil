@@ -21,10 +21,7 @@ const SkinPreviewSection = ({ skinUrl, onEdit }) => (
           className="p-1 bg-black h-[calc(100%-2.5rem)]"
           data-testid="skin-preview-placeholder"
         >
-          <div
-            className="w-full h-full flex items-center justify-center"
-            style={{ aspectRatio: '1 / 1' }}
-          >
+          <div className="w-full h-full flex items-center justify-center">
             <p className="font-minecraft text-white/70 text-center px-4">
               Select parts to preview your skin
             </p>

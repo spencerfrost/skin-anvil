@@ -76,16 +76,15 @@ const SkinViewer3D = ({ skinUrl, onEdit }) => {
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>Interactive 3D Preview</CardTitle>
         {onEdit && (
-          <Button size="sm" className="w-auto" onClick={onEdit}>
-            Paint / Edit
-          </Button>
+            <Button size="sm" className="w-auto" onClick={onEdit}>
+              Paint / Edit
+            </Button>
         )}
       </CardHeader>
       <CardContent className="p-1 bg-black h-[calc(100%-2.5rem)]">
         <div
           ref={containerRef}
           className="w-full h-full flex items-center justify-center"
-          style={{ aspectRatio: '1 / 1' }}
         >
           <canvas
             ref={canvasRef}
