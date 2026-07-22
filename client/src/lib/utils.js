@@ -6,16 +6,16 @@ export function cn(...inputs) {
 }
 
 export function getServerOrigin() {
-  if (process.env.NODE_ENV === 'production') {
+  if (import.meta.env.PROD) {
     return '';
   }
 
-  if (process.env.REACT_APP_SERVER_ORIGIN) {
-    return process.env.REACT_APP_SERVER_ORIGIN;
+  if (import.meta.env.VITE_SERVER_ORIGIN) {
+    return import.meta.env.VITE_SERVER_ORIGIN;
   }
 
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '');
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '');
   }
 
   return 'http://localhost:3004';

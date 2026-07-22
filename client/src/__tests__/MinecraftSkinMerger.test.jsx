@@ -1,36 +1,41 @@
-// MinecraftSkinMerger.test.js
-import '@testing-library/jest-dom';
+// MinecraftSkinMerger.test.jsx
 import { render, screen } from '@testing-library/react';
 import MinecraftSkinMerger from '../pages/MinecraftSkinMerger';
 import { useMergedSkinTexture } from '../hooks/useMergedSkinTexture';
 
 // Mock child components
-jest.mock('../components/SkinUploader', () => ({ index, onUpload }) => (
-  <div data-testid={`skin-uploader-${index}`}>
-    <button onClick={() => onUpload(index, `mock-skin-data-${index}`)}>
-      Upload Skin
-    </button>
-  </div>
-));
+vi.mock('../components/SkinUploader', () => ({
+  default: ({ index, onUpload }) => (
+    <div data-testid={`skin-uploader-${index}`}>
+      <button onClick={() => onUpload(index, `mock-skin-data-${index}`)}>
+        Upload Skin
+      </button>
+    </div>
+  ),
+}));
 
-jest.mock('../components/MergedSkinViewer', () => ({ skinUrl }) => (
-  <div data-testid="merged-skin-viewer">{skinUrl}</div>
-));
+vi.mock('../components/MergedSkinViewer', () => ({
+  default: ({ skinUrl }) => (
+    <div data-testid="merged-skin-viewer">{skinUrl}</div>
+  ),
+}));
 
 // Mock the 3D viewer (jsdom has no ResizeObserver/WebGL); expose the URL as an
 // attribute so getByText(mockUrl) still matches only the merged-skin-viewer mock
-jest.mock('../components/SkinViewer3D', () => ({ skinUrl }) => (
-  <div data-testid="skin-viewer-3d" data-skinurl={skinUrl} />
-));
+vi.mock('../components/SkinViewer3D', () => ({
+  default: ({ skinUrl }) => (
+    <div data-testid="skin-viewer-3d" data-skinurl={skinUrl} />
+  ),
+}));
 
 // Mock the live merge hook so we can control its output
-jest.mock('../hooks/useMergedSkinTexture', () => ({
-  useMergedSkinTexture: jest.fn(),
+vi.mock('../hooks/useMergedSkinTexture', () => ({
+  useMergedSkinTexture: vi.fn(),
 }));
 
 describe('MinecraftSkinMerger', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     useMergedSkinTexture.mockReturnValue({ mergedSkinUrl: null, error: null });
   });
 

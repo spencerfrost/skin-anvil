@@ -5,7 +5,7 @@ const mockSkinUrl = 'http://example.com/skin.png';
 
 describe('SkinTexture2D', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
         blob: () => Promise.resolve(new Blob()),
@@ -25,7 +25,7 @@ describe('SkinTexture2D', () => {
   });
 
   it('renders error message when image fails to load', async () => {
-    global.fetch = jest.fn(() => Promise.reject(new Error('Failed to fetch')));
+    global.fetch = vi.fn(() => Promise.reject(new Error('Failed to fetch')));
     const { getByText } = render(<SkinTexture2D skinUrl={mockSkinUrl} />);
     await waitFor(() => {
       expect(getByText(/Error loading skin texture/)).toBeInTheDocument();

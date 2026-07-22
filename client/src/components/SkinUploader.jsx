@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import PartSelector from './PartSelector';
 
-import { ReactComponent as Search } from '../assets/search.svg';
+import Search from '../assets/search.svg?react';
 import { getServerOrigin } from '../lib/utils';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';

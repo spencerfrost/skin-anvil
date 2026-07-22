@@ -1,11 +1,10 @@
-// SkinViewer3D.test.js
-import '@testing-library/jest-dom';
+// SkinViewer3D.test.jsx
 import { render, screen } from '@testing-library/react';
 import SkinViewer3D from '../components/SkinViewer3D';
 
-jest.mock('skinview3d', () => ({
-  SkinViewer: jest.fn(),
-  WalkingAnimation: jest.fn(),
+vi.mock('skinview3d', () => ({
+  SkinViewer: vi.fn(),
+  WalkingAnimation: vi.fn(),
 }));
 
 class ResizeObserver {
@@ -30,7 +29,7 @@ describe('SkinViewer3D', () => {
   const mockSkinUrl = 'http://example.com/skin.png';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('renders without crashing', () => {

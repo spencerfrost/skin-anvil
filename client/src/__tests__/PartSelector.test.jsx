@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import PartSelector from '../components/PartSelector';
 
 // Mock the skinCoords to ensure we have a valid clickable area
-jest.mock('../constants/skinParts', () => ({
+vi.mock('../constants/skinParts', () => ({
   skinCoords: {
     Head: { x: 0, y: 0, w: 32, h: 32 },
   },
@@ -12,7 +12,7 @@ describe('PartSelector', () => {
   const mockSkinUrl = 'http://example.com/skin.png';
   const mockSkinIndex = 0;
   const mockSelectedParts = {};
-  const mockOnPartSelection = jest.fn();
+  const mockOnPartSelection = vi.fn();
 
   beforeEach(() => {
     // Mock the Image object
@@ -26,21 +26,20 @@ describe('PartSelector', () => {
 
     // Mock canvas and its context
     const mockContext = {
-      clearRect: jest.fn(),
-      drawImage: jest.fn(),
-      save: jest.fn(),
-      restore: jest.fn(),
-      strokeRect: jest.fn(),
-      fillRect: jest.fn(),
+      clearRect: vi.fn(),
+      drawImage: vi.fn(),
+      save: vi.fn(),
+      restore: vi.fn(),
+      strokeRect: vi.fn(),
+      fillRect: vi.fn(),
     };
 
-    jest
-      .spyOn(HTMLCanvasElement.prototype, 'getContext')
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext')
       .mockImplementation(() => mockContext);
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('renders without crashing', () => {

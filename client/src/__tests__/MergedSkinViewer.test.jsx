@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react';
 import MergedSkinViewer from '../components/MergedSkinViewer';
 
 // Mock the child components
-jest.mock('../components/SkinTexture2D', () => {
-  return function MockedSkinTexture2D(props) {
+vi.mock('../components/SkinTexture2D', () => ({
+  default: function MockedSkinTexture2D(props) {
     return <div data-testid="mocked-2d-viewer" {...props} />;
-  };
-});
+  },
+}));
 
-jest.mock('../components/ui/button', () => ({
+vi.mock('../components/ui/button', () => ({
   Button: function MockedButton(props) {
     return <button data-testid="mocked-button" {...props} />;
   },

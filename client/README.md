@@ -12,6 +12,7 @@ This is the frontend application for the Minecraft Skin Merger project. It allow
 ## Technologies Used
 
 - React
+- Vite (build tooling) + Vitest (tests)
 - skinview3d (for 3D skin rendering)
 - Tailwind CSS (for styling)
 
@@ -19,7 +20,7 @@ This is the frontend application for the Minecraft Skin Merger project. It allow
 
 ### Prerequisites
 
-- Node.js (v14 or later)
+- Node.js (v22.12 or later)
 - npm
 
 ### Installation
@@ -35,11 +36,10 @@ This is the frontend application for the Minecraft Skin Merger project. It allow
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add the following:
+3. (Optional) Create a `.env` file in the root directory to override the backend origin (defaults to `http://localhost:3004` in dev):
    ```
-   REACT_APP_API_URL=http://localhost:3002/api
+   VITE_SERVER_ORIGIN=http://localhost:3004
    ```
-   Replace the URL with your backend API URL.
 
 ### Running the Application
 
@@ -63,10 +63,11 @@ The built files will be in the `build` directory.
 
 ## Available Scripts
 
-- `npm start`: Runs the app in development mode
-- `npm test`: Launches the test runner
+- `npm run dev` (or `npm start`): Runs the app in development mode
+- `npm test`: Runs the test suite once (`npm run test:watch` for watch mode)
 - `npm run build`: Builds the app for production
-- `npm run eject`: Ejects from Create React App (use with caution)
+- `npm run preview`: Serves the production build locally
+- `npm run lint`: Lints the source
 
 ## Contributing
 

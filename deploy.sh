@@ -21,7 +21,7 @@ cd "$PROJECT_ROOT"/server && npm ci
 
 # 3. Run Lint & Tests (Replaces CircleCI 'test' job)
 echo "🔍 Running ESLint..."
-cd "$PROJECT_ROOT"/client && ./node_modules/.bin/eslint . || true
+cd "$PROJECT_ROOT"/client && npm run lint || true
 
 echo "🧪 Running client tests..."
 cd "$PROJECT_ROOT"/client && CI=true npm test

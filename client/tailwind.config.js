@@ -1,12 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
-  ],
+  content: ['./index.html', './src/**/*.{js,jsx}'],
   prefix: "",
   theme: {
     container: {
@@ -66,16 +61,16 @@ module.exports = {
       };
       addUtilities(newUtilities, ['responsive', 'hover', 'active']);
     },
-    function({ addBase, theme }) {
+    function({ addBase }) {
       addBase({
         ':root': {
-          '--bg-btn': "url('assets/optimized/minecraft-btn.jpg')",
-          '--bg-minecraft': "url('assets/optimized/minecraft-bg.jpg')",
-          '@supports (background-image: url("assets/optimized/minecraft-btn.webp"))': {
-            '--bg-btn': "url('assets/optimized/minecraft-btn.webp')",
+          '--bg-btn': "url('../assets/optimized/minecraft-btn.jpg')",
+          '--bg-minecraft': "url('../assets/optimized/minecraft-bg.jpg')",
+          '@supports (background-image: url("../assets/optimized/minecraft-btn.webp"))': {
+            '--bg-btn': "url('../assets/optimized/minecraft-btn.webp')",
           },
-          '@supports (background-image: url("assets/optimized/minecraft-bg.webp"))': {
-            '--bg-minecraft': "url('assets/optimized/minecraft-bg.webp')",
+          '@supports (background-image: url("../assets/optimized/minecraft-bg.webp"))': {
+            '--bg-minecraft': "url('../assets/optimized/minecraft-bg.webp')",
           },
         },
       });
