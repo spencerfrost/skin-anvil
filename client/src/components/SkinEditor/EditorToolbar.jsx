@@ -30,6 +30,7 @@ const EditorToolbar = ({
   canRedo,
   onUndo,
   onRedo,
+  onSave,
 }) => (
   <div
     className="flex flex-wrap items-center gap-2 py-1"
@@ -114,6 +115,10 @@ const EditorToolbar = ({
         <Redo2 className="h-4 w-4" />
       </Button>
     </div>
+
+    <Button size="sm" className="w-auto" onClick={onSave}>
+      Save Changes
+    </Button>
   </div>
 );
 
@@ -128,6 +133,7 @@ EditorToolbar.propTypes = {
   canRedo: PropTypes.bool.isRequired,
   onUndo: PropTypes.func.isRequired,
   onRedo: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
 
 export default EditorToolbar;

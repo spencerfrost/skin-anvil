@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSkinEditor } from '../../hooks/useSkinEditor';
@@ -114,19 +115,14 @@ const SkinEditorModal = ({ skinUrl, onSave, onCancel }) => {
                   Beta
                 </span>
               </CardTitle>
-              <div className="flex items-center gap-2">
-                <Button
-                  size="sm"
-                  className="w-auto"
-                  onClick={handleSave}
-                  disabled={status !== 'ready'}
-                >
-                  Save Changes
-                </Button>
-                <Button size="sm" className="w-auto" onClick={handleCancel}>
-                  Cancel
-                </Button>
-              </div>
+              <Button
+                size="icon"
+                title="Close editor"
+                aria-label="Close editor"
+                onClick={handleCancel}
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </CardHeader>
 
             {status === 'ready' && (
@@ -141,6 +137,7 @@ const SkinEditorModal = ({ skinUrl, onSave, onCancel }) => {
                 canRedo={editor.canRedo}
                 onUndo={editor.undo}
                 onRedo={editor.redo}
+                onSave={handleSave}
               />
             )}
 

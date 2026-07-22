@@ -107,7 +107,7 @@ describe('SkinEditorModal', () => {
   it('cancels without confirmation when nothing changed', async () => {
     const confirmSpy = vi.spyOn(window, 'confirm');
     const { onCancel } = await renderModal();
-    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByLabelText('Close editor'));
     expect(confirmSpy).not.toHaveBeenCalled();
     expect(onCancel).toHaveBeenCalled();
     confirmSpy.mockRestore();
@@ -120,12 +120,12 @@ describe('SkinEditorModal', () => {
       .mockImplementation(() => false);
     const { onCancel } = await renderModal();
 
-    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByLabelText('Close editor'));
     expect(confirmSpy).toHaveBeenCalled();
     expect(onCancel).not.toHaveBeenCalled();
 
     confirmSpy.mockImplementation(() => true);
-    fireEvent.click(screen.getByText('Cancel'));
+    fireEvent.click(screen.getByLabelText('Close editor'));
     expect(onCancel).toHaveBeenCalled();
     confirmSpy.mockRestore();
   });
