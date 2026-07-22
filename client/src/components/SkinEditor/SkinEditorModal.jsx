@@ -105,7 +105,15 @@ const SkinEditorModal = ({ skinUrl, onSave, onCancel }) => {
         <Card className="h-full w-full">
           <div className="flex h-full flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle>Paint / Edit Skin</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                Paint / Edit Skin
+                <span
+                  className="border border-yellow-700 bg-yellow-400 px-1.5 py-0.5 font-minecraft text-[10px] uppercase leading-none text-yellow-900"
+                  title="The skin editor is a work in progress — expect rough edges"
+                >
+                  Beta
+                </span>
+              </CardTitle>
               <div className="flex items-center gap-2">
                 <Button
                   size="sm"
@@ -158,11 +166,6 @@ const SkinEditorModal = ({ skinUrl, onSave, onCancel }) => {
                 </div>
               )}
             </CardContent>
-
-            <p className="mt-1 hidden font-minecraft text-xs text-text-gray sm:block">
-              Left-drag to paint &middot; right-drag or hold Space to rotate
-              &middot; scroll to zoom
-            </p>
           </div>
         </Card>
       </div>

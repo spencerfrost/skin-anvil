@@ -237,7 +237,7 @@ const PaintViewport3D = ({ editor }) => {
   return (
     <div
       ref={containerRef}
-      className="flex h-full w-full items-center justify-center bg-black"
+      className="relative flex h-full w-full items-center justify-center bg-black"
     >
       <canvas
         ref={canvasRef}
@@ -251,6 +251,11 @@ const PaintViewport3D = ({ editor }) => {
         onLostPointerCapture={endStroke}
         onContextMenu={(e) => e.preventDefault()}
       />
+      <p className="pointer-events-none absolute bottom-2 left-2 hidden font-minecraft text-[10px] text-white/60 sm:block">
+        <div>Left-drag to paint</div>
+        <div>Right-drag to rotate</div>
+        <div>Scroll to zoom</div>
+      </p>
     </div>
   );
 };
