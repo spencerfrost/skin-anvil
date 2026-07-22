@@ -18,9 +18,9 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
       },
       size: {
-        default: 'h-[30pt] w-[calc(30pt*10)]',
-        sm: 'h-[25pt] w-[calc(25pt*8)]',
-        lg: 'h-[35pt] w-[calc(35pt*12)]',
+        default: 'h-[30pt] w-[calc(30pt*10)] [&_.mc-button-title]:px-4',
+        sm: 'h-[25pt] w-[calc(25pt*8)] [&_.mc-button-title]:px-4',
+        lg: 'h-[35pt] w-[calc(35pt*12)] [&_.mc-button-title]:px-4',
         icon: 'h-[30px] w-[30px] text-sm',
         'icon-sm': 'h-[25px] w-[25px] text-sm',
         'icon-lg': 'h-[36px] w-[36px]',
