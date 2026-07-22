@@ -1,23 +1,16 @@
 import React from 'react';
-import titleImage from '../../../assets/optimized/title.png';
+import titleImage from '../../../assets/optimized/skin-anvil.png';
 
 const Header = () => (
   <header className="mb-4 sm:mb-8">
     <img
       src={titleImage}
       alt="Skin Anvil"
-      className="mx-auto max-w-full"
+      className="mx-auto max-w-full max-h-20 sm:max-h-32"
     />
-    <p className="text-center mt-2 sm:mt-4 flex justify-center px-2 sm:px-4">
-      <span className="font-minecraft text-text-white relative px-2 py-1 text-xs sm:text-sm md:text-base">
-        <span className="relative z-10">
-          Add up to 4 skins, select the body parts, and then merge them together
-          to create a new skin.
-        </span>
-        <span
-          className="absolute inset-0 bg-black opacity-50"
-          aria-hidden="true"
-        />
+    <p className="text-center mt-2 sm:mt-4 px-2 sm:px-4">
+      <span className="font-minecraft text-text-white bg-black/50 inline-block px-2 py-1 text-xs sm:text-sm md:text-base">
+        Add up to 4 skins, choose which body parts to use, and forge them into a new skin.
       </span>
     </p>
   </header>
