@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import SkinTexture2D from './SkinTexture2D';
-import { Button } from './ui/button';
 
 const MergedSkinViewer = ({ skinUrl }) => {
   const handleDownload = () => {
@@ -15,10 +14,7 @@ const MergedSkinViewer = ({ skinUrl }) => {
   return (
     <div className="mt-4">
       <div className="lg:w-1/2 lg:mx-auto">
-        <SkinTexture2D skinUrl={skinUrl} />
-      </div>
-      <div className="mt-4 flex justify-center">
-        <Button onClick={handleDownload}>Download Merged Skin</Button>
+        <SkinTexture2D skinUrl={skinUrl} onDownload={handleDownload} />
       </div>
     </div>
   );

@@ -5,10 +5,27 @@
 @tailwind utilities;
 
 @layer base {
+  /* Prevent layout shift when the vertical scrollbar appears/disappears. */
+  html {
+    overflow-y: scroll; /* fallback: always reserve a scrollbar track */
+  }
+  @supports (scrollbar-gutter: stable) {
+    html {
+      overflow-y: auto;
+      scrollbar-gutter: stable; /* reserve the gutter without drawing an empty track */
+    }
+  }
+
   body {
     @apply text-text-white m-0 font-minecraft antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .text-shadow-minecraft {
+    text-shadow: 2px 2px #3e3e3e;
   }
 }

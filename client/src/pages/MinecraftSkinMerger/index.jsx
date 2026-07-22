@@ -20,7 +20,7 @@ const MinecraftSkinMergerPage = () => {
 
   return (
     <div
-      className="min-h-screen bg-minecraft bg-cover bg-center p-2 sm:p-4"
+      className="min-h-screen bg-minecraft bg-cover bg-center bg-fixed p-2 sm:p-4"
       data-testid="minecraft-skin-merger"
     >
       <div className="md:container mx-auto">

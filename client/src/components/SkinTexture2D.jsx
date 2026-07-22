@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
-const SkinTexture2D = ({ skinUrl }) => {
+const SkinTexture2D = ({ skinUrl, onDownload }) => {
   const [imageError, setImageError] = useState(null);
 
   useEffect(() => {
@@ -30,8 +31,13 @@ const SkinTexture2D = ({ skinUrl }) => {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>2D Skin Texture</CardTitle>
+        {onDownload && (
+          <Button size="sm" className="w-auto px-4" onClick={onDownload}>
+            Download
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="p-2 bg-white">
         <img
@@ -48,6 +54,7 @@ const SkinTexture2D = ({ skinUrl }) => {
 
 SkinTexture2D.propTypes = {
   skinUrl: PropTypes.string.isRequired,
+  onDownload: PropTypes.func,
 };
 
 export default SkinTexture2D;
