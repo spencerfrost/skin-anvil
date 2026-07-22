@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'MCSkinMerger-Staging',
+    name: 'SkinAnvil-Staging',
     script: 'server.mjs',  // Note: Updated to .mjs to match rollup output
     env: {
       NODE_ENV: 'production',

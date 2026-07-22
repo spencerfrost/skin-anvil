@@ -1,6 +1,6 @@
 const isDev = process.env.NODE_ENV !== 'production';
 
-const PROD_DOMAIN = 'https://mcskinmerger.mrspinn.ca';
+const PROD_DOMAIN = 'https://skinanvil.mrspinn.ca';
 const DEFAULT_PORT = isDev ? 3004 : 3220;
 const PORT = process.env.PORT || DEFAULT_PORT;
 

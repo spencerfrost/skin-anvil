@@ -1,7 +1,7 @@
 {
-  "name": "minecraft-skin-merger-server",
+  "name": "skin-anvil-server",
   "version": "1.0.0",
-  "description": "Backend server for Minecraft Skin Merger",
+  "description": "Backend server for Skin Anvil",
   "type": "module",
   "main": "server.mjs",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "minecraft-skin-merger": "file:..",
+    "skin-anvil": "file:..",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

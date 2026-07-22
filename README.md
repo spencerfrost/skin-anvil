@@ -1,7 +1,7 @@
-# Minecraft Skin Merger
+# Skin Anvil
 
 ## Description
-Minecraft Skin Merger is a web application designed to allow users to merge various elements of different Minecraft skins into a single customized skin. This tool is perfect for Minecraft players who want to create a unique look by combining parts of existing skins.
+Skin Anvil is a web application designed to allow users to merge various elements of different Minecraft skins into a single customized skin. This tool is perfect for Minecraft players who want to create a unique look by combining parts of existing skins.
 
 ## Features
 - Upload multiple skin files.
@@ -16,12 +16,12 @@ Minecraft Skin Merger is a web application designed to allow users to merge vari
 - npm
 
 ### Setup
-To set up the Minecraft Skin Merger application on your local machine, follow these steps:
+To set up the Skin Anvil application on your local machine, follow these steps:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/minecraft-skin-merger.git
-   cd minecraft-skin-merger
+   git clone https://github.com/yourusername/skin-anvil.git
+   cd skin-anvil
    ```
 
 2. **Install dependencies**
@@ -37,7 +37,7 @@ To run both the client and the server in development mode with hot reloading, us
 ```bash
 npm run dev
 ```
-This command will start the frontend development server on `http://localhost:3000` and the backend server on `http://localhost:3002`.
+This command will start the frontend development server on `http://localhost:3000` and the backend server on `http://localhost:3004`.
 
 ### Production
 To run the application in production mode:
@@ -54,12 +54,11 @@ To run the application in production mode:
 Ensure that all environment variables are set correctly for production environments.
 
 ## API Endpoints
-- POST `/api/merge-skins`: Endpoint to upload skins and receive a URL to the merged skin image.
-- GET `/download/:filename`: Endpoint to download the merged skin image directly.
 
-## Future features
-- Add search field to GET skins from an api
-- Visual body part selection
+- GET `/api/fetch-skin/:name`: Proxies the external skin lookup by username or UUID.
+- GET `/api/health`: Health check.
+
+Skin merging, editing, and downloads happen entirely client-side — there are no server endpoints for them.
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request.

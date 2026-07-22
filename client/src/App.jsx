@@ -1,9 +1,9 @@
-import MinecraftSkinMerger from './pages/MinecraftSkinMerger';
+import SkinAnvil from './pages/SkinAnvil';
 
 function App() {
   return (
     <div className="App">
-      <MinecraftSkinMerger />
+      <SkinAnvil />
     </div>
   );
 }

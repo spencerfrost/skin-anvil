@@ -13,7 +13,7 @@ export default async function fetchSkin(req, res) {
   try {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'MinecraftSkinMerger/1.0',
+        'User-Agent': 'SkinAnvil/1.0',
       },
     });
 

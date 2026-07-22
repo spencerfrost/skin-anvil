@@ -4,10 +4,10 @@
 set -e
 
 PROJECT_ROOT=$(pwd)
-CLIENT_TARGET="/var/www/minecraft-skin-merger/client"
-SERVER_TARGET="/var/www/minecraft-skin-merger/server"
+CLIENT_TARGET="/var/www/skin-anvil/client"
+SERVER_TARGET="/var/www/skin-anvil/server"
 
-echo "🚀 Starting local deployment for Minecraft Skin Merger..."
+echo "🚀 Starting local deployment for Skin Anvil..."
 
 # 1. Ensure you are on the master branch and have the latest local changes
 echo "Checking git status..."
@@ -52,7 +52,7 @@ sudo npm install --production
 
 echo "🔄 Restarting application services..."
 # Using startOrRestart handles both booting it up fresh or reloading it cleanly
-pm2 startOrRestart /var/www/minecraft-skin-merger/ecosystem.config.js
+pm2 startOrRestart /var/www/skin-anvil/ecosystem.config.js
 sudo systemctl restart nginx
 
-echo "✅ Deployment complete! Your app is live at https://mcskinmerger.mrspinn.ca"
+echo "✅ Deployment complete! Your app is live at https://skinanvil.mrspinn.ca"

@@ -1,7 +1,7 @@
 {
-  "name": "minecraft-skin-merger",
+  "name": "skin-anvil",
   "version": "1.0.0",
-  "description": "A web application for merging Minecraft skins",
+  "description": "Skin Anvil — a web application for merging and editing Minecraft skins",
   "main": "server/src/server.js",
   "scripts": {
     "dev": "concurrently \"npm run start --prefix client\" \"npm run dev --prefix server\"",

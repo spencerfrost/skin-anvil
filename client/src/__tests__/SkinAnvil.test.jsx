@@ -1,6 +1,6 @@
-// MinecraftSkinMerger.test.jsx
+// SkinAnvil.test.jsx
 import { fireEvent, render, screen } from '@testing-library/react';
-import MinecraftSkinMerger from '../pages/MinecraftSkinMerger';
+import SkinAnvil from '../pages/SkinAnvil';
 import { useMergedSkinTexture } from '../hooks/useMergedSkinTexture';
 
 // Mock child components
@@ -56,18 +56,18 @@ vi.mock('../hooks/useMergedSkinTexture', () => ({
   useMergedSkinTexture: vi.fn(),
 }));
 
-describe('MinecraftSkinMerger', () => {
+describe('SkinAnvil', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     useMergedSkinTexture.mockReturnValue({ mergedSkinUrl: null, error: null });
   });
 
   test('renders the component with initial state', () => {
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
-    expect(screen.getByTestId('minecraft-skin-merger')).toBeInTheDocument();
+    expect(screen.getByTestId('skin-anvil')).toBeInTheDocument();
     expect(screen.getByRole('img')).toBeInTheDocument();
-    expect(screen.getByAltText('Minecraft Skin Merger')).toBeInTheDocument();
+    expect(screen.getByAltText('Skin Anvil')).toBeInTheDocument();
 
     expect(
       screen.getByText(
@@ -77,20 +77,20 @@ describe('MinecraftSkinMerger', () => {
   });
 
   test('renders skin uploaders', () => {
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
     const skinUploaders = screen.getAllByTestId(/skin-uploader-/);
     expect(skinUploaders).toHaveLength(4);
   });
 
   test('does not render the merged skin viewer without a merged texture', () => {
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
     expect(screen.queryByTestId('merged-skin-viewer')).not.toBeInTheDocument();
   });
 
   test('shows the preview placeholder instead of the 3D viewer without a merged texture', () => {
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
     expect(screen.getByTestId('skin-preview-placeholder')).toBeInTheDocument();
     expect(
@@ -106,7 +106,7 @@ describe('MinecraftSkinMerger', () => {
       error: null,
     });
 
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
     expect(screen.getByTestId('merged-skin-viewer')).toBeInTheDocument();
     expect(screen.getByText(mockUrl)).toBeInTheDocument();
@@ -119,14 +119,14 @@ describe('MinecraftSkinMerger', () => {
   });
 
   test('offers the paint/edit button only when a merged skin exists', () => {
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
     expect(screen.queryByTestId('edit-skin-button')).not.toBeInTheDocument();
 
     useMergedSkinTexture.mockReturnValue({
       mergedSkinUrl: 'data:image/png;base64,mock-merged-skin',
       error: null,
     });
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
     expect(screen.getByTestId('edit-skin-button')).toBeInTheDocument();
   });
 
@@ -137,7 +137,7 @@ describe('MinecraftSkinMerger', () => {
       error: null,
     });
 
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
     expect(screen.queryByTestId('skin-editor-modal')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('edit-skin-button'));
@@ -162,7 +162,7 @@ describe('MinecraftSkinMerger', () => {
       error: null,
     });
 
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
     fireEvent.click(screen.getByTestId('edit-skin-button'));
     fireEvent.click(screen.getByTestId('editor-cancel'));
 
@@ -183,7 +183,7 @@ describe('MinecraftSkinMerger', () => {
       .spyOn(window, 'confirm')
       .mockImplementation(() => false);
 
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
     fireEvent.click(screen.getByTestId('edit-skin-button'));
     fireEvent.click(screen.getByTestId('editor-save'));
 
@@ -215,7 +215,7 @@ describe('MinecraftSkinMerger', () => {
       error: 'Error building merged skin: Failed to load skin image',
     });
 
-    render(<MinecraftSkinMerger />);
+    render(<SkinAnvil />);
 
     expect(screen.getByText(/Error building merged skin/)).toBeInTheDocument();
   });

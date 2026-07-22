@@ -1,6 +1,6 @@
-# Minecraft Skin Merger - Frontend
+# Skin Anvil - Frontend
 
-This is the frontend application for the Minecraft Skin Merger project. It allows users to upload and merge Minecraft skins, providing both 2D and 3D previews of the results.
+This is the frontend application for the Skin Anvil project. It allows users to upload and merge Minecraft skins, providing both 2D and 3D previews of the results.
 
 ## Features
 
@@ -27,8 +27,8 @@ This is the frontend application for the Minecraft Skin Merger project. It allow
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your_username/minecraft-skin-merger-frontend.git
-   cd minecraft-skin-merger-frontend
+   git clone https://github.com/your_username/skin-anvil-frontend.git
+   cd skin-anvil-frontend
    ```
 
 2. Install dependencies:

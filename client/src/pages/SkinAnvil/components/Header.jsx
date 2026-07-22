@@ -5,7 +5,7 @@ const Header = () => (
   <header className="mb-4 sm:mb-8">
     <img
       src={titleImage}
-      alt="Minecraft Skin Merger"
+      alt="Skin Anvil"
       className="mx-auto max-w-full"
     />
     <p className="text-center mt-2 sm:mt-4 flex justify-center px-2 sm:px-4">

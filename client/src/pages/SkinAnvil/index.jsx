@@ -11,7 +11,7 @@ import SkinUploaderSection from './components/SkinUploaderSection';
 
 const DISCARD_EDITS_MESSAGE = 'This will discard your painted edits. Continue?';
 
-const MinecraftSkinMergerPage = () => {
+const SkinAnvilPage = () => {
   const {
     skins,
     selectedParts,
@@ -51,7 +51,7 @@ const MinecraftSkinMergerPage = () => {
   return (
     <div
       className="min-h-screen bg-minecraft bg-cover bg-center bg-fixed p-2 sm:p-4"
-      data-testid="minecraft-skin-merger"
+      data-testid="skin-anvil"
     >
       <div className="md:container mx-auto">
         <Header />
@@ -90,4 +90,4 @@ const MinecraftSkinMergerPage = () => {
   );
 };
 
-export default React.memo(MinecraftSkinMergerPage);
+export default React.memo(SkinAnvilPage);
