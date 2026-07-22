@@ -71,7 +71,7 @@ describe('SkinAnvil', () => {
 
     expect(
       screen.getByText(
-        'Add up to 4 skins, select the body parts, and then merge them together to create a new skin.'
+        'Add up to 4 skins, choose which body parts to use, and forge them into a new skin.'
       )
     ).toBeInTheDocument();
   });
