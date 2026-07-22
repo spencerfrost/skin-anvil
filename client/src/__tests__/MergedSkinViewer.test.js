@@ -8,12 +8,6 @@ jest.mock('../components/SkinTexture2D', () => {
   };
 });
 
-jest.mock('../components/SkinViewer3D', () => {
-  return function MockedSkinViewer3D(props) {
-    return <div data-testid="mocked-3d-viewer" {...props} />;
-  };
-});
-
 jest.mock('../components/ui/button', () => ({
   Button: function MockedButton(props) {
     return <button data-testid="mocked-button" {...props} />;
@@ -23,22 +17,17 @@ jest.mock('../components/ui/button', () => ({
 describe('MergedSkinViewer', () => {
   const mockSkinUrl = 'data:image/png;base64,mock-skin-data';
 
-  it('renders SkinTexture2D and SkinViewer3D components', () => {
+  it('renders SkinTexture2D and download button', () => {
     render(<MergedSkinViewer skinUrl={mockSkinUrl} />);
 
     expect(screen.getByTestId('mocked-2d-viewer')).toBeInTheDocument();
-    expect(screen.getByTestId('mocked-3d-viewer')).toBeInTheDocument();
     expect(screen.getByTestId('mocked-button')).toBeInTheDocument();
   });
 
-  it('passes the skin data URL straight to both viewers', () => {
+  it('passes the skin data URL straight to the 2D viewer', () => {
     render(<MergedSkinViewer skinUrl={mockSkinUrl} />);
 
     expect(screen.getByTestId('mocked-2d-viewer')).toHaveAttribute(
-      'skinUrl',
-      mockSkinUrl
-    );
-    expect(screen.getByTestId('mocked-3d-viewer')).toHaveAttribute(
       'skinUrl',
       mockSkinUrl
     );

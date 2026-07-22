@@ -5,6 +5,7 @@ import ErrorSection from './components/ErrorSection';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import MergedSkinSection from './components/MergedSkinSection';
+import SkinPreviewSection from './components/SkinPreviewSection';
 import SkinUploaderSection from './components/SkinUploaderSection';
 
 const MinecraftSkinMergerPage = () => {
@@ -26,7 +27,7 @@ const MinecraftSkinMergerPage = () => {
         <Header />
 
         <main>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-4">
             <SkinUploaderSection
               skins={skins}
               selectedParts={selectedParts}
@@ -34,6 +35,7 @@ const MinecraftSkinMergerPage = () => {
               handleSkinDelete={handleSkinDelete}
               handlePartSelection={handlePartSelection}
             />
+            <SkinPreviewSection skinUrl={mergedSkinUrl} />
           </div>
 
           <ErrorSection error={error} />
