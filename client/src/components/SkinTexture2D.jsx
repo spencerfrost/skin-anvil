@@ -34,7 +34,7 @@ const SkinTexture2D = ({ skinUrl, onDownload }) => {
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>2D Skin Texture</CardTitle>
         {onDownload && (
-          <Button size="sm" className="w-auto px-4" onClick={onDownload}>
+          <Button size="sm" className="w-auto" onClick={onDownload}>
             Download
           </Button>
         )}
