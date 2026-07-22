@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as skinview3d from 'skinview3d';
+import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
-const SkinViewer3D = ({ skinUrl }) => {
+const SkinViewer3D = ({ skinUrl, onEdit }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const skinViewer = useRef(null);
@@ -72,8 +73,13 @@ const SkinViewer3D = ({ skinUrl }) => {
 
   return (
     <Card className="w-full h-full">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>Interactive 3D Preview</CardTitle>
+        {onEdit && (
+          <Button size="sm" className="w-auto" onClick={onEdit}>
+            Paint / Edit
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="p-1 bg-black h-[calc(100%-2.5rem)]">
         <div
@@ -100,6 +106,7 @@ const SkinViewer3D = ({ skinUrl }) => {
 
 SkinViewer3D.propTypes = {
   skinUrl: PropTypes.string.isRequired,
+  onEdit: PropTypes.func,
 };
 
 export default SkinViewer3D;

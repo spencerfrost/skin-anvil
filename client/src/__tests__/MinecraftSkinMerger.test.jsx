@@ -1,5 +1,5 @@
 // MinecraftSkinMerger.test.jsx
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import MinecraftSkinMerger from '../pages/MinecraftSkinMerger';
 import { useMergedSkinTexture } from '../hooks/useMergedSkinTexture';
 
@@ -23,8 +23,31 @@ vi.mock('../components/MergedSkinViewer', () => ({
 // Mock the 3D viewer (jsdom has no ResizeObserver/WebGL); expose the URL as an
 // attribute so getByText(mockUrl) still matches only the merged-skin-viewer mock
 vi.mock('../components/SkinViewer3D', () => ({
-  default: ({ skinUrl }) => (
-    <div data-testid="skin-viewer-3d" data-skinurl={skinUrl} />
+  default: ({ skinUrl, onEdit }) => (
+    <div data-testid="skin-viewer-3d" data-skinurl={skinUrl}>
+      {onEdit && (
+        <button data-testid="edit-skin-button" onClick={onEdit}>
+          Paint / Edit
+        </button>
+      )}
+    </div>
+  ),
+}));
+
+// Mock the editor modal (pulls in skinview3d/three); expose save/cancel hooks
+vi.mock('../components/SkinEditor/SkinEditorModal', () => ({
+  default: ({ skinUrl, onSave, onCancel }) => (
+    <div data-testid="skin-editor-modal" data-skinurl={skinUrl}>
+      <button
+        data-testid="editor-save"
+        onClick={() => onSave('data:image/png;base64,edited-skin')}
+      >
+        Save Changes
+      </button>
+      <button data-testid="editor-cancel" onClick={onCancel}>
+        Cancel
+      </button>
+    </div>
   ),
 }));
 
@@ -93,6 +116,97 @@ describe('MinecraftSkinMerger', () => {
     expect(
       screen.queryByTestId('skin-preview-placeholder')
     ).not.toBeInTheDocument();
+  });
+
+  test('offers the paint/edit button only when a merged skin exists', () => {
+    render(<MinecraftSkinMerger />);
+    expect(screen.queryByTestId('edit-skin-button')).not.toBeInTheDocument();
+
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: 'data:image/png;base64,mock-merged-skin',
+      error: null,
+    });
+    render(<MinecraftSkinMerger />);
+    expect(screen.getByTestId('edit-skin-button')).toBeInTheDocument();
+  });
+
+  test('opens the editor and routes saved edits into both previews', () => {
+    const mockUrl = 'data:image/png;base64,mock-merged-skin';
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: mockUrl,
+      error: null,
+    });
+
+    render(<MinecraftSkinMerger />);
+    expect(screen.queryByTestId('skin-editor-modal')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('edit-skin-button'));
+    const modal = screen.getByTestId('skin-editor-modal');
+    expect(modal).toHaveAttribute('data-skinurl', mockUrl);
+
+    fireEvent.click(screen.getByTestId('editor-save'));
+    expect(screen.queryByTestId('skin-editor-modal')).not.toBeInTheDocument();
+
+    const editedUrl = 'data:image/png;base64,edited-skin';
+    expect(screen.getByTestId('skin-viewer-3d')).toHaveAttribute(
+      'data-skinurl',
+      editedUrl
+    );
+    expect(screen.getByText(editedUrl)).toBeInTheDocument();
+  });
+
+  test('cancelling the editor keeps the merged skin untouched', () => {
+    const mockUrl = 'data:image/png;base64,mock-merged-skin';
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: mockUrl,
+      error: null,
+    });
+
+    render(<MinecraftSkinMerger />);
+    fireEvent.click(screen.getByTestId('edit-skin-button'));
+    fireEvent.click(screen.getByTestId('editor-cancel'));
+
+    expect(screen.queryByTestId('skin-editor-modal')).not.toBeInTheDocument();
+    expect(screen.getByTestId('skin-viewer-3d')).toHaveAttribute(
+      'data-skinurl',
+      mockUrl
+    );
+  });
+
+  test('changing merge inputs discards saved edits behind a confirm', () => {
+    const mockUrl = 'data:image/png;base64,mock-merged-skin';
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: mockUrl,
+      error: null,
+    });
+    const confirmSpy = vi
+      .spyOn(window, 'confirm')
+      .mockImplementation(() => false);
+
+    render(<MinecraftSkinMerger />);
+    fireEvent.click(screen.getByTestId('edit-skin-button'));
+    fireEvent.click(screen.getByTestId('editor-save'));
+
+    const editedUrl = 'data:image/png;base64,edited-skin';
+    const uploadButton = screen.getAllByText('Upload Skin')[0];
+
+    // Declined confirm: upload is blocked, edits stay
+    fireEvent.click(uploadButton);
+    expect(confirmSpy).toHaveBeenCalled();
+    expect(screen.getByTestId('skin-viewer-3d')).toHaveAttribute(
+      'data-skinurl',
+      editedUrl
+    );
+
+    // Accepted confirm: upload proceeds and the edit override resets
+    confirmSpy.mockImplementation(() => true);
+    fireEvent.click(uploadButton);
+    expect(screen.getByTestId('skin-viewer-3d')).toHaveAttribute(
+      'data-skinurl',
+      mockUrl
+    );
+
+    confirmSpy.mockRestore();
   });
 
   test('displays error message when the merge hook reports one', () => {

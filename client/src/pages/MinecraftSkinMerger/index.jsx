@@ -1,12 +1,15 @@
-import React from 'react';
-import { useSkinManagement } from '../../hooks/useSkinManagement';
+import React, { useCallback, useEffect, useState } from 'react';
+import SkinEditorModal from '../../components/SkinEditor/SkinEditorModal';
 import { useMergedSkinTexture } from '../../hooks/useMergedSkinTexture';
+import { useSkinManagement } from '../../hooks/useSkinManagement';
 import ErrorSection from './components/ErrorSection';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import MergedSkinSection from './components/MergedSkinSection';
 import SkinPreviewSection from './components/SkinPreviewSection';
 import SkinUploaderSection from './components/SkinUploaderSection';
+
+const DISCARD_EDITS_MESSAGE = 'This will discard your painted edits. Continue?';
 
 const MinecraftSkinMergerPage = () => {
   const {
@@ -17,6 +20,33 @@ const MinecraftSkinMergerPage = () => {
     handlePartSelection,
   } = useSkinManagement();
   const { mergedSkinUrl, error } = useMergedSkinTexture(skins, selectedParts);
+
+  // Painted edits override the live merge until the merge inputs change.
+  const [editedSkinUrl, setEditedSkinUrl] = useState(null);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const displayedSkinUrl = editedSkinUrl ?? mergedSkinUrl;
+
+  useEffect(() => {
+    setEditedSkinUrl(null);
+  }, [skins, selectedParts]);
+
+  // Changing merge inputs regenerates the skin from scratch, clobbering any
+  // painted edits — confirm before letting that happen.
+  const guardEdits = useCallback(
+    (action) =>
+      (...args) => {
+        if (editedSkinUrl && !window.confirm(DISCARD_EDITS_MESSAGE)) return;
+        action(...args);
+      },
+    [editedSkinUrl]
+  );
+
+  const openEditor = useCallback(() => setIsEditorOpen(true), []);
+  const closeEditor = useCallback(() => setIsEditorOpen(false), []);
+  const saveEdits = useCallback((dataUrl) => {
+    setEditedSkinUrl(dataUrl);
+    setIsEditorOpen(false);
+  }, []);
 
   return (
     <div
@@ -31,20 +61,31 @@ const MinecraftSkinMergerPage = () => {
             <SkinUploaderSection
               skins={skins}
               selectedParts={selectedParts}
-              handleSkinUpload={handleSkinUpload}
-              handleSkinDelete={handleSkinDelete}
-              handlePartSelection={handlePartSelection}
+              handleSkinUpload={guardEdits(handleSkinUpload)}
+              handleSkinDelete={guardEdits(handleSkinDelete)}
+              handlePartSelection={guardEdits(handlePartSelection)}
             />
-            <SkinPreviewSection skinUrl={mergedSkinUrl} />
+            <SkinPreviewSection
+              skinUrl={displayedSkinUrl}
+              onEdit={displayedSkinUrl ? openEditor : undefined}
+            />
           </div>
 
           <ErrorSection error={error} />
 
-          <MergedSkinSection skinUrl={mergedSkinUrl} />
+          <MergedSkinSection skinUrl={displayedSkinUrl} />
         </main>
 
         <Footer />
       </div>
+
+      {isEditorOpen && displayedSkinUrl && (
+        <SkinEditorModal
+          skinUrl={displayedSkinUrl}
+          onSave={saveEdits}
+          onCancel={closeEditor}
+        />
+      )}
     </div>
   );
 };

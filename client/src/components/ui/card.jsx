@@ -108,7 +108,7 @@ const CardContent = ({ className, ...props }) => (
   >
     <div className="absolute inset-0 border-t-2 border-l-2 border-gray" />
     <div className="absolute inset-0 border-b-2 border-r-2 border-white" />
-    <div className="relative z-10">{props.children}</div>
+    <div className="relative z-10 h-full">{props.children}</div>
   </div>
 );
 

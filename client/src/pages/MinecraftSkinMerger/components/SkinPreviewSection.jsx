@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SkinViewer3D from '../../../components/SkinViewer3D';
 import {
@@ -7,10 +8,10 @@ import {
   CardTitle,
 } from '../../../components/ui/card';
 
-const SkinPreviewSection = ({ skinUrl }) => (
+const SkinPreviewSection = ({ skinUrl, onEdit }) => (
   <div className="lg:col-span-1 order-1 lg:order-2">
     {skinUrl ? (
-      <SkinViewer3D skinUrl={skinUrl} />
+      <SkinViewer3D skinUrl={skinUrl} onEdit={onEdit} />
     ) : (
       <Card className="w-full h-full">
         <CardHeader>
@@ -33,5 +34,10 @@ const SkinPreviewSection = ({ skinUrl }) => (
     )}
   </div>
 );
+
+SkinPreviewSection.propTypes = {
+  skinUrl: PropTypes.string,
+  onEdit: PropTypes.func,
+};
 
 export default React.memo(SkinPreviewSection);
