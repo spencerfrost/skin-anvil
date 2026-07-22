@@ -7,7 +7,7 @@ module.exports = {
       PORT: 3003
     },
     watch: true,
-    ignore_watch: ['node_modules', 'public', 'uploads'],
+    ignore_watch: ['node_modules'],
     max_memory_restart: '300M'
   }]
 }

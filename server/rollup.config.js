@@ -16,17 +16,5 @@ export default {
       presets: [["@babel/preset-env", { targets: { node: "20" } }]],
     }),
   ],
-  external: [
-    'cors', 
-    'express', 
-    'multer', 
-    'node-fetch', 
-    'sharp',
-    'validator',
-    'sanitize-html',
-    'path',
-    'fs/promises',
-    'url',
-    'fs'
-  ],
+  external: ['cors', 'express', 'node-fetch', 'path', 'url'],
 };

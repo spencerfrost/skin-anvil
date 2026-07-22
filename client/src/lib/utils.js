@@ -18,7 +18,7 @@ export function getServerOrigin() {
     return process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '');
   }
 
-  return 'http://localhost:3002';
+  return 'http://localhost:3004';
 }
 
 export function getApiBaseUrl() {
