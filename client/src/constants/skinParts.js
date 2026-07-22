@@ -22,6 +22,25 @@ export const skinRegions = {
   'Right Pant': { x: 4, y: 36, w: 4, h: 12, dx: 48, dy: 240, dw: 48, dh: 144 },
 };
 
+// Full-texture rectangles within the 64x64 skin PNG, one per part.
+// Used to composite the merged skin client-side: each part is copied from its
+// source skin into the same rectangle on the destination canvas (identity copy).
+// This is the single source of truth for these regions.
+export const skinTextureRegions = {
+  Head: { left: 0, top: 0, width: 32, height: 16 },
+  Hat: { left: 32, top: 0, width: 32, height: 16 },
+  Body: { left: 16, top: 16, width: 24, height: 16 },
+  Jacket: { left: 16, top: 32, width: 24, height: 16 },
+  'Left Arm': { left: 32, top: 48, width: 16, height: 16 },
+  'Left Sleeve': { left: 48, top: 48, width: 16, height: 16 },
+  'Right Arm': { left: 40, top: 16, width: 16, height: 16 },
+  'Right Sleeve': { left: 40, top: 32, width: 16, height: 16 },
+  'Left Leg': { left: 16, top: 48, width: 16, height: 16 },
+  'Left Pant': { left: 0, top: 48, width: 16, height: 16 },
+  'Right Leg': { left: 0, top: 16, width: 16, height: 16 },
+  'Right Pant': { left: 0, top: 32, width: 16, height: 16 },
+};
+
 export const skinCoords = {
   Head: { x: 16, y: 0, w: 32, h: 32 },
   Body: { x: 16, y: 32, w: 32, h: 48 },

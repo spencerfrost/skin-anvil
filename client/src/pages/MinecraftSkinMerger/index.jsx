@@ -1,12 +1,10 @@
 import React from 'react';
 import { useSkinManagement } from '../../hooks/useSkinManagement';
-import { useSkinMerger } from '../../hooks/useSkinMerger';
+import { useMergedSkinTexture } from '../../hooks/useMergedSkinTexture';
 import ErrorSection from './components/ErrorSection';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import MergeControlsSection from './components/MergeControlsSection';
 import MergedSkinSection from './components/MergedSkinSection';
-import SkinPreviewSection from './components/SkinPreviewSection';
 import SkinUploaderSection from './components/SkinUploaderSection';
 
 const MinecraftSkinMergerPage = () => {
@@ -17,11 +15,7 @@ const MinecraftSkinMergerPage = () => {
     handleSkinDelete,
     handlePartSelection,
   } = useSkinManagement();
-  const { mergedSkin, error, mergeSkins } = useSkinMerger();
-
-  const handleMergeSkins = React.useCallback(() => {
-    mergeSkins(skins, selectedParts);
-  }, [mergeSkins, skins, selectedParts]);
+  const { mergedSkinUrl, error } = useMergedSkinTexture(skins, selectedParts);
 
   return (
     <div
@@ -32,7 +26,7 @@ const MinecraftSkinMergerPage = () => {
         <Header />
 
         <main>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
             <SkinUploaderSection
               skins={skins}
               selectedParts={selectedParts}
@@ -40,14 +34,11 @@ const MinecraftSkinMergerPage = () => {
               handleSkinDelete={handleSkinDelete}
               handlePartSelection={handlePartSelection}
             />
-            <SkinPreviewSection skins={skins} selectedParts={selectedParts} />
           </div>
-
-          <MergeControlsSection onMerge={handleMergeSkins} />
 
           <ErrorSection error={error} />
 
-          <MergedSkinSection mergedSkin={mergedSkin} />
+          <MergedSkinSection skinUrl={mergedSkinUrl} />
         </main>
 
         <Footer />

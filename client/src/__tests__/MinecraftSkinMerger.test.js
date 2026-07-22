@@ -1,7 +1,8 @@
 // MinecraftSkinMerger.test.js
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MinecraftSkinMerger from '../pages/MinecraftSkinMerger';
+import { useMergedSkinTexture } from '../hooks/useMergedSkinTexture';
 
 // Mock child components
 jest.mock('../components/SkinUploader', () => ({ index, onUpload }) => (
@@ -12,25 +13,19 @@ jest.mock('../components/SkinUploader', () => ({ index, onUpload }) => (
   </div>
 ));
 
-jest.mock('../components/SkinPreview', () => () => (
-  <div data-testid="skin-preview">Mocked SkinPreview</div>
+jest.mock('../components/MergedSkinViewer', () => ({ skinUrl }) => (
+  <div data-testid="merged-skin-viewer">{skinUrl}</div>
 ));
 
-jest.mock('../components/MergedSkinViewer', () => ({ mergedSkin }) => (
-  <div data-testid="merged-skin-viewer">{mergedSkin}</div>
-));
-
-// Mock fetch function
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({ mergedSkinUrl: '/mock-merged-skin-url' }),
-  })
-);
+// Mock the live merge hook so we can control its output
+jest.mock('../hooks/useMergedSkinTexture', () => ({
+  useMergedSkinTexture: jest.fn(),
+}));
 
 describe('MinecraftSkinMerger', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    useMergedSkinTexture.mockReturnValue({ mergedSkinUrl: null, error: null });
   });
 
   test('renders the component with initial state', () => {
@@ -54,24 +49,33 @@ describe('MinecraftSkinMerger', () => {
     expect(skinUploaders).toHaveLength(4);
   });
 
-  test('renders skin preview', () => {
+  test('does not render the merged skin viewer without a merged texture', () => {
     render(<MinecraftSkinMerger />);
 
-    expect(screen.getByTestId('skin-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('merged-skin-viewer')).not.toBeInTheDocument();
   });
 
-  test('displays error message when merge fails', async () => {
-    global.fetch.mockImplementationOnce(() =>
-      Promise.reject(new Error('Merge failed'))
-    );
+  test('renders the merged skin viewer live once a texture exists', () => {
+    const mockUrl = 'data:image/png;base64,mock-merged-skin';
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: mockUrl,
+      error: null,
+    });
 
     render(<MinecraftSkinMerger />);
 
-    const mergeButton = screen.getByTestId('merge-skins-button');
-    fireEvent.click(mergeButton);
+    expect(screen.getByTestId('merged-skin-viewer')).toBeInTheDocument();
+    expect(screen.getByText(mockUrl)).toBeInTheDocument();
+  });
 
-    await waitFor(() => {
-      expect(screen.getByText(/Error merging skins/)).toBeInTheDocument();
+  test('displays error message when the merge hook reports one', () => {
+    useMergedSkinTexture.mockReturnValue({
+      mergedSkinUrl: null,
+      error: 'Error building merged skin: Failed to load skin image',
     });
+
+    render(<MinecraftSkinMerger />);
+
+    expect(screen.getByText(/Error building merged skin/)).toBeInTheDocument();
   });
 });
